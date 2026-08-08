@@ -60,7 +60,7 @@ export default function AnimatedEmoji({ emoji, motion, size = 110 }: Props) {
           false
         );
         break;
-      case 'punch':
+      case 'clap':
         tx.value = withRepeat(
           withSequence(
             withTiming(-20, { duration: 70, easing: Easing.out(Easing.quad) }),
@@ -70,7 +70,11 @@ export default function AnimatedEmoji({ emoji, motion, size = 110 }: Props) {
           false
         );
         rot.value = withRepeat(
-          withSequence(withTiming(-0.18, { duration: 70 }), withTiming(0, { duration: 430 })),
+
+          withSequence(
+            withTiming(-0.18, { duration: 70 }),
+            withTiming(0, { duration: 430 })
+          ),
           -1,
           false
         );
@@ -106,7 +110,11 @@ export default function AnimatedEmoji({ emoji, motion, size = 110 }: Props) {
       case 'walk':
         tx.value = withRepeat(withTiming(26, { duration: 800 }), -1, true);
         rot.value = withRepeat(
-          withSequence(withTiming(0.08, { duration: 400 }), withTiming(-0.08, { duration: 400 })),
+
+          withSequence(
+            withTiming(0.08, { duration: 400 }),
+            withTiming(-0.08, { duration: 400 })
+          ),
           -1,
           false
         );
@@ -121,7 +129,11 @@ export default function AnimatedEmoji({ emoji, motion, size = 110 }: Props) {
           false
         );
         scale.value = withRepeat(
-          withSequence(withTiming(1.12, { duration: 300 }), withTiming(1, { duration: 300 })),
+
+          withSequence(
+            withTiming(1.12, { duration: 300 }),
+            withTiming(1, { duration: 300 })
+          ),
           -1,
           false
         );
@@ -168,7 +180,8 @@ export default function AnimatedEmoji({ emoji, motion, size = 110 }: Props) {
         );
         break;
     }
-  }, [motion, tx, ty, rot, scale]);
+
+  }, [motion]);
 
   const animatedStyle = useAnimatedStyle(() => ({
     transform: [

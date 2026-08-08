@@ -7,7 +7,7 @@ export type Language = 'fr' | 'en';
 export type MotionType =
   | 'bounce'
   | 'run'
-  | 'punch'
+  | 'clap'
   | 'dive'
   | 'swim'
   | 'walk'

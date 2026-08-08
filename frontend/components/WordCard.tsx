@@ -41,7 +41,7 @@ export default function WordCard({ word, targetLanguage, index, total }: Props) 
           emoji={word.emoji}
           motion={word.motion}
           media={word.media}
-          size={120}
+          size={130}
         />
         <Text style={styles.mainWord}>{main}</Text>
         <Text style={styles.translation}>{translation}</Text>

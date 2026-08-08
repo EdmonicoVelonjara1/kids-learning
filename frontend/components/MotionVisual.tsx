@@ -24,7 +24,7 @@ export default function MotionVisual({ emoji, motion, media, size = 110 }: Props
     return (
       <VideoView
         player={player}
-        style={{ width: size * 1.5, height: size * 1.5 }}
+        style={{ width: size * 2, height: size * 2, padding: 2 }}
         contentFit="contain"
         nativeControls={false}
       />

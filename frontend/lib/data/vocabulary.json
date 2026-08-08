@@ -116,7 +116,7 @@
 
     { "id": "w092", "category": "mouvements", "emoji": "🤸", "fr": "sauter", "en": "jump", "motion": "bounce", "media": { "kind": "video", "asset": "jump" } },
     { "id": "w093", "category": "mouvements", "emoji": "🏃", "fr": "courir", "en": "run", "motion": "run", "media": { "kind": "video", "asset": "run" } },
-    { "id": "w094", "category": "mouvements", "emoji": "👊", "fr": "taper", "en": "hit", "motion": "punch", "media": { "kind": "video", "asset": "punch" } },
+    { "id": "w094", "category": "mouvements", "emoji": "👊", "fr": "taper", "en": "applause", "motion": "clap", "media": { "kind": "video", "asset": "clap" } },
     { "id": "w095", "category": "mouvements", "emoji": "🤿", "fr": "plonger", "en": "dive", "motion": "dive", "media": { "kind": "video", "asset": "dive" } },
     { "id": "w096", "category": "mouvements", "emoji": "🏊", "fr": "nager", "en": "swim", "motion": "swim", "media": { "kind": "video", "asset": "swim" } },
     { "id": "w097", "category": "mouvements", "emoji": "🚶", "fr": "marcher", "en": "walk", "motion": "walk", "media": { "kind": "video", "asset": "walk" } },

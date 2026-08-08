@@ -1,7 +1,7 @@
 export const VIDEO_ASSETS: Record<string, number> = {
   jump: require('@/assets/animations/jump.mp4'),
   run: require('@/assets/animations/run.mp4'),
-  punch: require('@/assets/animations/punch.mp4'),
+  clap: require('@/assets/animations/clap.mp4'),
   dive: require('@/assets/animations/dive.mp4'),
   swim: require('@/assets/animations/swim.mp4'),
   walk: require('@/assets/animations/walk.mp4'),
