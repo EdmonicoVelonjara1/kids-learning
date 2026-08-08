@@ -1,8 +1,7 @@
 import { useCallback, useEffect, useState } from 'react';
-import { ActivityIndicator, FlatList, Pressable, StyleSheet } from 'react-native';
+import { ActivityIndicator, FlatList, Pressable, ScrollView, Text, View } from 'react-native';
 
 import WordCard, { speak } from '@/components/WordCard';
-import { Text, View } from '@/components/Themed';
 import { useSettings } from '@/lib/settings';
 import { fetchCategories, fetchWords, type Category, type Word } from '@/lib/api';
 
@@ -62,39 +61,41 @@ export default function LearnScreen() {
   if (selected) {
     if (loading) {
       return (
-        <View style={styles.center}>
+        <View className="flex-1 items-center justify-center p-6">
           <ActivityIndicator size="large" />
         </View>
       );
     }
     if (words.length === 0) {
       return (
-        <View style={styles.center}>
-          <Text>Cette catégorie est vide.</Text>
+        <View className="flex-1 items-center justify-center p-6">
+          <Text className="text-base text-slate-700 dark:text-slate-300">Cette catégorie est vide.</Text>
         </View>
       );
     }
     return (
-      <View style={styles.container}>
+      <ScrollView className="flex-1 bg-white dark:bg-black" contentContainerClassName="p-5">
         <WordCard word={words[index]} targetLanguage={targetLanguage} index={index} total={words.length} />
-        <View style={styles.navRow}>
-          <Pressable style={styles.navButton} onPress={prev}>
-            <Text style={styles.navButtonText}>◀ Précédent</Text>
-          </Pressable>
-          <Pressable style={styles.navButton} onPress={next}>
-            <Text style={styles.navButtonText}>Suivant ▶</Text>
+        <View className="mx-auto w-full max-w-md">
+          <View className="mt-3 flex-row gap-3">
+            <Pressable className="flex-1 items-center rounded-full bg-amber-400 py-3.5" onPress={prev}>
+              <Text className="text-lg font-bold text-[#4E342E]">◀ Précédent</Text>
+            </Pressable>
+            <Pressable className="flex-1 items-center rounded-full bg-amber-400 py-3.5" onPress={next}>
+              <Text className="text-lg font-bold text-[#4E342E]">Suivant ▶</Text>
+            </Pressable>
+          </View>
+          <Pressable className="mt-3 items-center py-3" onPress={() => setSelected(null)}>
+            <Text className="text-base opacity-70 dark:text-white">← Toutes les catégories</Text>
           </Pressable>
         </View>
-        <Pressable style={styles.backButton} onPress={() => setSelected(null)}>
-          <Text style={styles.backButtonText}>← Toutes les catégories</Text>
-        </Pressable>
-      </View>
+      </ScrollView>
     );
   }
 
   if (loading) {
     return (
-      <View style={styles.center}>
+      <View className="flex-1 items-center justify-center p-6">
         <ActivityIndicator size="large" />
       </View>
     );
@@ -102,10 +103,10 @@ export default function LearnScreen() {
 
   if (error) {
     return (
-      <View style={styles.center}>
-        <Text style={styles.errorText}>{error}</Text>
-        <Pressable style={styles.retryButton} onPress={loadCategories}>
-          <Text style={styles.retryButtonText}>Réessayer</Text>
+      <View className="flex-1 items-center justify-center p-6">
+        <Text className="mb-4 text-center text-base text-slate-700 dark:text-slate-300">{error}</Text>
+        <Pressable className="rounded-full bg-blue-500 px-6 py-3" onPress={loadCategories}>
+          <Text className="text-base font-bold text-white">Réessayer</Text>
         </Pressable>
       </View>
     );
@@ -113,121 +114,28 @@ export default function LearnScreen() {
 
   return (
     <FlatList
-      style={styles.list}
-      contentContainerStyle={styles.listContent}
+      className="w-full max-w-lg self-center"
+      contentContainerClassName="p-5 pb-10"
       data={categories}
       keyExtractor={(item) => item.id}
       numColumns={2}
-      columnWrapperStyle={styles.column}
+      columnWrapperStyle={{ gap: 14, marginBottom: 14 }}
       ListHeaderComponent={
-        <Text style={styles.title}>
+        <Text className="mb-5 text-center text-2xl font-extrabold dark:text-white">
           {targetLanguage === 'fr' ? 'Qu’est-ce qu’on apprend ?' : 'What shall we learn?'}
         </Text>
       }
       renderItem={({ item }) => (
         <Pressable
-          style={[styles.categoryCard, { backgroundColor: item.color }]}
+          className="aspect-[1.1] flex-1 justify-end rounded-3xl p-4 shadow-lg shadow-black/10"
+          style={{ backgroundColor: item.color }}
           onPress={() => openCategory(item)}>
-          <Text style={styles.categoryName}>
+          <Text className="text-xl font-extrabold text-white">
             {targetLanguage === 'fr' ? item.name_fr : item.name_en}
           </Text>
-          <Text style={styles.categoryCount}>{item.word_count} mots</Text>
+          <Text className="mt-1 text-sm text-white/85">{item.word_count} mots</Text>
         </Pressable>
       )}
     />
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 20,
-  },
-  center: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    padding: 24,
-  },
-  list: {
-    flex: 1,
-  },
-  listContent: {
-    padding: 20,
-    paddingBottom: 40,
-  },
-  title: {
-    fontSize: 24,
-    fontWeight: '800',
-    marginBottom: 20,
-    textAlign: 'center',
-  },
-  column: {
-    gap: 14,
-    marginBottom: 14,
-  },
-  categoryCard: {
-    flex: 1,
-    aspectRatio: 1.1,
-    borderRadius: 24,
-    padding: 16,
-    justifyContent: 'flex-end',
-    shadowColor: '#000',
-    shadowOpacity: 0.12,
-    shadowRadius: 8,
-    shadowOffset: { width: 0, height: 4 },
-    elevation: 4,
-  },
-  categoryName: {
-    fontSize: 20,
-    fontWeight: '800',
-    color: '#fff',
-  },
-  categoryCount: {
-    fontSize: 14,
-    color: 'rgba(255,255,255,0.85)',
-    marginTop: 4,
-  },
-  navRow: {
-    flexDirection: 'row',
-    gap: 12,
-    marginTop: 12,
-  },
-  navButton: {
-    flex: 1,
-    backgroundColor: '#FFC107',
-    borderRadius: 999,
-    paddingVertical: 14,
-    alignItems: 'center',
-  },
-  navButtonText: {
-    fontSize: 18,
-    fontWeight: '700',
-    color: '#4E342E',
-  },
-  backButton: {
-    marginTop: 12,
-    paddingVertical: 12,
-    alignItems: 'center',
-  },
-  backButtonText: {
-    fontSize: 16,
-    opacity: 0.7,
-  },
-  errorText: {
-    fontSize: 16,
-    textAlign: 'center',
-    marginBottom: 16,
-  },
-  retryButton: {
-    backgroundColor: '#3A86FF',
-    borderRadius: 999,
-    paddingHorizontal: 24,
-    paddingVertical: 12,
-  },
-  retryButtonText: {
-    color: '#fff',
-    fontSize: 16,
-    fontWeight: '700',
-  },
-});

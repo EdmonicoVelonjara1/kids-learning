@@ -1,9 +1,9 @@
 import * as Speech from 'expo-speech';
-import { Pressable, StyleSheet } from 'react-native';
+import { Pressable, Text, View } from 'react-native';
 
 import MotionVisual from '@/components/MotionVisual';
-import { Text, View } from '@/components/Themed';
 import type { Language, Word } from '@/lib/api';
+import { useScale } from '@/lib/responsive';
 
 type Props = {
   word: Word;
@@ -26,39 +26,52 @@ export default function WordCard({ word, targetLanguage, index, total }: Props) 
   const otherLanguage: Language = targetLanguage === 'fr' ? 'en' : 'fr';
   const main = word[targetLanguage];
   const translation = word[otherLanguage];
+  const scale = useScale();
 
   return (
-    <View style={styles.wrapper}>
-      <View style={styles.counter}>
-        <Text style={styles.counterText}>
+    <View className="mx-auto w-full max-w-md items-center justify-center pt-4">
+      <View className="mb-4">
+        <Text className="opacity-60 dark:text-white" style={{ fontSize: Math.round(18 * scale) }}>
           {index + 1} / {total}
         </Text>
       </View>
 
-      <Pressable style={styles.card} onPress={() => speak(main, targetLanguage)}>
+      <Pressable
+        className="aspect-[0.95] w-full items-center justify-center rounded-[32px] bg-orange-50 shadow-lg shadow-black/10 dark:bg-orange-900"
+        onPress={() => speak(main, targetLanguage)}>
         <MotionVisual
           key={word.id}
           emoji={word.emoji}
           motion={word.motion}
           media={word.media}
-          size={130}
+          size={Math.round(130 * scale)}
         />
-        <Text style={styles.mainWord}>{main}</Text>
-        <Text style={styles.translation}>{translation}</Text>
+        <Text
+          className="text-center font-extrabold text-slate-700 dark:text-orange-100"
+          style={{ fontSize: Math.round(44 * scale) }}>
+          {main}
+        </Text>
+        <Text
+          className="mt-1.5 text-slate-400 dark:text-orange-300"
+          style={{ fontSize: Math.round(24 * scale) }}>
+          {translation}
+        </Text>
       </Pressable>
 
-      <View style={styles.audioRow}>
+      <View className="mt-6 flex-row gap-3 bg-transparent">
         <Pressable
-          style={[styles.audioButton, { backgroundColor: '#ED6A5A' }]}
+          className="flex-1 items-center rounded-full px-3 py-3"
+          style={{ backgroundColor: '#ED6A5A' }}
           onPress={() => speak(word.fr, 'fr')}>
-          <Text style={styles.audioButtonText}>
+          <Text className="text-lg font-bold text-white" numberOfLines={1}>
             {LANGUAGE_META.fr.flag} {word.fr}
           </Text>
         </Pressable>
         <Pressable
-          style={[styles.audioButton, { backgroundColor: '#3A86FF' }]}
+          className="flex-1 items-center rounded-full px-3 py-3"
+          style={{ backgroundColor: '#3A86FF' }}
           onPress={() => speak(word.en, 'en')}>
-          <Text style={styles.audioButtonText}>
+          <Text className="text-lg font-bold text-white" numberOfLines={1}>
             {LANGUAGE_META.en.flag} {word.en}
           </Text>
         </Pressable>
@@ -66,61 +79,3 @@ export default function WordCard({ word, targetLanguage, index, total }: Props) 
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  wrapper: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    padding: 20,
-  },
-  counter: {
-    marginBottom: 16,
-  },
-  counterText: {
-    fontSize: 18,
-    opacity: 0.6,
-  },
-  card: {
-    width: '100%',
-    aspectRatio: 0.95,
-    borderRadius: 32,
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: '#FFF3E0',
-    shadowColor: '#000',
-    shadowOpacity: 0.12,
-    shadowRadius: 12,
-    shadowOffset: { width: 0, height: 6 },
-    elevation: 6,
-  },
-  mainWord: {
-    fontSize: 44,
-    fontWeight: '800',
-    color: '#37474F',
-    textAlign: 'center',
-  },
-  translation: {
-    fontSize: 24,
-    color: '#90A4AE',
-    marginTop: 6,
-  },
-  audioRow: {
-    flexDirection: 'row',
-    gap: 12,
-    marginTop: 24,
-    backgroundColor: 'transparent',
-  },
-  audioButton: {
-    paddingHorizontal: 18,
-    paddingVertical: 12,
-    borderRadius: 999,
-    minWidth: 130,
-    alignItems: 'center',
-  },
-  audioButtonText: {
-    color: '#fff',
-    fontSize: 18,
-    fontWeight: '700',
-  },
-});

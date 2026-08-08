@@ -1,15 +1,20 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { createContext, useContext, useEffect, useState, type ReactNode } from 'react';
+import { Appearance } from 'react-native';
 
 import type { Language } from '@/lib/api';
+
+export type ThemeMode = 'system' | 'light' | 'dark';
 
 type Settings = {
   targetLanguage: Language;
   playerName: string;
   apiUrl: string;
+  themeMode: ThemeMode;
   setTargetLanguage: (language: Language) => void;
   setPlayerName: (name: string) => void;
   setApiUrl: (url: string) => void;
+  setThemeMode: (mode: ThemeMode) => void;
 };
 
 const STORAGE_KEY = 'lingo-kids/settings-v2';
@@ -20,6 +25,7 @@ type Persisted = {
   targetLanguage?: Language;
   playerName?: string;
   apiUrl?: string;
+  themeMode?: ThemeMode;
 };
 
 async function loadSettings(): Promise<Persisted> {
@@ -43,6 +49,7 @@ export function SettingsProvider({ children }: { children: ReactNode }) {
   const [targetLanguage, setTargetLanguage] = useState<Language>('fr');
   const [playerName, setPlayerName] = useState('Lila');
   const [apiUrl, setApiUrl] = useState('');
+  const [themeMode, setThemeMode] = useState<ThemeMode>('system');
   const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
@@ -50,15 +57,20 @@ export function SettingsProvider({ children }: { children: ReactNode }) {
       if (saved.targetLanguage) setTargetLanguage(saved.targetLanguage);
       if (saved.playerName) setPlayerName(saved.playerName);
       if (saved.apiUrl) setApiUrl(saved.apiUrl);
+      if (saved.themeMode) setThemeMode(saved.themeMode);
       setLoaded(true);
     });
   }, []);
 
   useEffect(() => {
     if (loaded) {
-      saveSettings({ targetLanguage, playerName, apiUrl });
+      saveSettings({ targetLanguage, playerName, apiUrl, themeMode });
     }
-  }, [targetLanguage, playerName, apiUrl, loaded]);
+  }, [targetLanguage, playerName, apiUrl, themeMode, loaded]);
+
+  useEffect(() => {
+    Appearance.setColorScheme(themeMode === 'system' ? null : themeMode);
+  }, [themeMode]);
 
   return (
     <SettingsContext.Provider
@@ -66,9 +78,11 @@ export function SettingsProvider({ children }: { children: ReactNode }) {
         targetLanguage,
         playerName,
         apiUrl,
+        themeMode,
         setTargetLanguage,
         setPlayerName,
         setApiUrl,
+        setThemeMode,
       }}>
       {children}
     </SettingsContext.Provider>
