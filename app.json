@@ -1,0 +1,18 @@
+{
+  "expo": {
+    "extra": {
+      "eas": {
+        "projectId": "ee0cf887-695e-4c8e-8edd-8635e57e2092"
+      }
+    },
+    "android": {
+      "package": "com.venico.kidslearning"
+    },
+    "ios": {
+      "bundleIdentifier": "com.venico.kidslearning",
+      "infoPlist": {
+        "ITSAppUsesNonExemptEncryption": false
+      }
+    }
+  }
+}
