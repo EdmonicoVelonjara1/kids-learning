@@ -1,1 +1,1 @@
-/home/dmon/Projets/my-app/backend/target/debug/lingo-kids-backend: /home/dmon/Projets/my-app/backend/src/main.rs
+/home/dmon/Projets/mylingo/backend/target/debug/lingo-kids-backend: /home/dmon/Projets/mylingo/backend/src/main.rs
