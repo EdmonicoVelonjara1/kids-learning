@@ -69,7 +69,7 @@ export function SettingsProvider({ children }: { children: ReactNode }) {
   }, [targetLanguage, playerName, apiUrl, themeMode, loaded]);
 
   useEffect(() => {
-    Appearance.setColorScheme(themeMode === 'system' ? null : themeMode);
+    Appearance.setColorScheme(themeMode === 'system' ? 'unspecified' : themeMode);
   }, [themeMode]);
 
   return (

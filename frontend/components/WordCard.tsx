@@ -37,39 +37,41 @@ export default function WordCard({ word, targetLanguage, index, total }: Props) 
       </View>
 
       <Pressable
-        className="aspect-[0.95] w-full items-center justify-center rounded-[32px] bg-orange-50 shadow-lg shadow-black/10 dark:bg-orange-900"
+        className="aspect-[0.95] gap-5 w-full items-center justify-center rounded-[32px] bg-orange-50 shadow-lg shadow-black/10 dark:bg-orange-900"
         onPress={() => speak(main, targetLanguage)}>
-        <MotionVisual
-          key={word.id}
-          emoji={word.emoji}
-          motion={word.motion}
-          media={word.media}
-          size={Math.round(130 * scale)}
-        />
-        <Text
-          className="text-center font-extrabold text-slate-700 dark:text-orange-100"
-          style={{ fontSize: Math.round(44 * scale) }}>
-          {main}
-        </Text>
-        <Text
-          className="mt-1.5 text-slate-400 dark:text-orange-300"
-          style={{ fontSize: Math.round(24 * scale) }}>
-          {translation}
-        </Text>
+        <View className='absolute top-2'>
+          <MotionVisual
+            key={word.id}
+            emoji={word.emoji}
+            motion={word.motion}
+            media={word.media}
+            size={Math.round(130 * scale)}
+          />
+        </View>
+        <View className='flex absolute bottom-0 justify-center items-center pb-5'>
+          <Text
+            className="text-center font-extrabold text-slate-700 dark:text-orange-100 text-md"
+            style={{ fontSize: Math.round(28 * scale) }}>
+            {main}
+          </Text>
+          <Text
+            className="mt-1.5 text-slate-400 dark:text-orange-300"
+            style={{ fontSize: Math.round(24 * scale) }}>
+            {translation}
+          </Text>
+        </View>
       </Pressable>
 
       <View className="mt-6 flex-row gap-3 bg-transparent">
         <Pressable
-          className="flex-1 items-center rounded-full px-3 py-3"
-          style={{ backgroundColor: '#ED6A5A' }}
+          className="flex-1 items-center rounded-full bg-[#ED6A5A] px-3 py-3"
           onPress={() => speak(word.fr, 'fr')}>
           <Text className="text-lg font-bold text-white" numberOfLines={1}>
             {LANGUAGE_META.fr.flag} {word.fr}
           </Text>
         </Pressable>
         <Pressable
-          className="flex-1 items-center rounded-full px-3 py-3"
-          style={{ backgroundColor: '#3A86FF' }}
+          className="flex-1 items-center rounded-full bg-[#3A86FF] px-3 py-3"
           onPress={() => speak(word.en, 'en')}>
           <Text className="text-lg font-bold text-white" numberOfLines={1}>
             {LANGUAGE_META.en.flag} {word.en}

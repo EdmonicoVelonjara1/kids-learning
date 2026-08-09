@@ -74,9 +74,17 @@ export default function LearnScreen() {
       );
     }
     return (
-      <ScrollView className="flex-1 bg-white dark:bg-black" contentContainerClassName="p-5">
-        <WordCard word={words[index]} targetLanguage={targetLanguage} index={index} total={words.length} />
-        <View className="mx-auto w-full max-w-md">
+      <ScrollView className="flex-1 bg-white dark:bg-black gap-3 bg-yellow-100" contentContainerClassName="p-2">
+        <View className='flex h-[95%]' >
+          <WordCard 
+            word={words[index]} 
+            targetLanguage={targetLanguage} 
+            index={index} 
+            total={words.length} 
+          />
+        </View>
+        
+        <View className="flex mx-auto w-full max-w-md justify-end">
           <View className="mt-3 flex-row gap-3">
             <Pressable className="flex-1 items-center rounded-full bg-amber-400 py-3.5" onPress={prev}>
               <Text className="text-lg font-bold text-[#4E342E]">◀ Précédent</Text>

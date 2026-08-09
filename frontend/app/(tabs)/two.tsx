@@ -133,16 +133,15 @@ export default function GamesScreen() {
           {question.options.map((option, i) => {
             const isCorrectOption = i === question.correct;
             const isPicked = answer?.picked === i;
-            let bg = '#ECEFF1';
+            let bgClass = 'bg-[#ECEFF1]';
             if (answer) {
-              if (isCorrectOption) bg = '#66BB6A';
-              else if (isPicked) bg = '#EF5350';
+              if (isCorrectOption) bgClass = 'bg-[#66BB6A]';
+              else if (isPicked) bgClass = 'bg-[#EF5350]';
             }
             return (
               <Pressable
                 key={`${question.word_id}-${i}`}
-                className="flex-row items-center justify-between rounded-[20px] px-5 py-[18px]"
-                style={{ backgroundColor: bg }}
+                className={`flex-row items-center justify-between rounded-[20px] px-5 py-[18px] ${bgClass}`}
                 disabled={!!answer}
                 onPress={() => handlePick(i)}>
                 <Text className="font-bold text-slate-700" style={{ fontSize: Math.round(22 * scale) }}>

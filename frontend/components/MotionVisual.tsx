@@ -4,6 +4,7 @@ import { Text } from 'react-native';
 import AnimatedEmoji from '@/components/AnimatedEmoji';
 import type { Media, MotionType } from '@/lib/api';
 import { getVideoSource } from '@/lib/media';
+import { View } from './Themed';
 
 type Props = {
   emoji: string;
@@ -22,12 +23,14 @@ export default function MotionVisual({ emoji, motion, media, size = 110 }: Props
 
   if (source) {
     return (
-      <VideoView
-        player={player}
-        style={{ width: size * 2, height: size * 2, padding: 2 }}
-        contentFit="contain"
-        nativeControls={false}
-      />
+      <View className='flex'>
+        <VideoView
+          player={player}
+          style={{ width: size * 2.5, height: size * 2, padding: 5 }}
+          contentFit="cover"
+          nativeControls={false}
+        />
+      </View>
     );
   }
 
@@ -35,5 +38,5 @@ export default function MotionVisual({ emoji, motion, media, size = 110 }: Props
     return <AnimatedEmoji emoji={emoji} motion={motion} size={size} />;
   }
 
-  return <Text style={{ fontSize: size }}>{emoji}</Text>;
+  return <Text style={{ fontSize: size * 1.5 }}>{emoji}</Text>;
 }

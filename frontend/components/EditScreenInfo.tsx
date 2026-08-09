@@ -22,7 +22,7 @@ export default function EditScreenInfo({ path }: { path: string }) {
 
       <View className="mx-5 mt-4 items-center">
         <ExternalLink
-          style={{ paddingVertical: 15 }}
+          className="py-[15px]"
           href="https://docs.expo.io/get-started/create-a-new-app/#opening-the-app-on-your-phonetablet">
           <Text className="text-center text-[#2f95dc] dark:text-white">
             Tap here if your app doesn't automatically update after making changes
